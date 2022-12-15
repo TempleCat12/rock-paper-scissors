@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <h1>Let's play game!</h1>
+    <button type="button" onclick="game()">play</button>
+    <script>
+        //get playSelection
+        //  format player input value case-insensitive but capitalize the first character;
+        function formatInput(input){
+            return input.trim().toLowerCase().replace(input[0],input[0].toUpperCase());
+        }
+        // get computer selection
+        function getComputerSelection(){
+            let randomNum = Math.floor(Math.random()*3);
+            switch(randomNum){
+                case 0 :
+                    return "Rock";
+                case 1 : 
+                    return "Paper";
+                case 2 : 
+                    return "Scissors";
+            }
+        }
+        //justify who win
+        function playAround(playerSelection, computerSelection){
+            //peace
+            if(playerSelection === computerSelection){
+                resultMsg += `Peace! ${playerSelection} versus ${computerSelection}`;
+                return;
+            }
+            //win
+            if(playerSelection === "Rock" && computerSelection === "Scissors"){
+                resultMsg += `You win! ${playerSelection} defeat ${computerSelection}`;
+                winTimes++;
+            }else if(playerSelection === "Paper" && computerSelection === "Rock"){
+                resultMsg += `You win! ${playerSelection} defeat ${computerSelection}`;
+                winTimes++;
+            }else if(playerSelection === "Scissors" && computerSelection === "Paper"){
+                resultMsg += `You win! ${playerSelection} defeat ${computerSelection}`;
+                winTimes++;
+            }else{
+                //lose
+                resultMsg += `You lose! ${playerSelection} lose ${computerSelection}`;
+                loseTimes++;
+            }
+        }
+        let resultMsg = "";
+        let winTimes = 0;
+        let loseTimes = 0;
+        function game(){
+            for (let i = 0; i < 5; i++) {
+                let playerSelection = prompt("Rock or Paper or Scissors");
+                if(playerSelection === "" || playerSelection === null){
+                    alert("Exit")
+                    return;
+                }
+                playerSelection = formatInput(playerSelection);
+                const computerSelection = getComputerSelection();
+
+                resultMsg = "Round " + (i+1) + "\n";
+                playAround(playerSelection, computerSelection)
+                let score = `Your score: win ${winTimes} times and lose ${loseTimes} times`;
+                console.log(resultMsg);
+                console.log(score);
+            }
+        }
+    </script>
+</body>
+</html>
